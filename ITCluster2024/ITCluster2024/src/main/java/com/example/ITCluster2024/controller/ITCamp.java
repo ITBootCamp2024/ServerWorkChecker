@@ -8,7 +8,7 @@ import java.util.Map;
 
 @RestController
 public class ITCamp {
-    @GetMapping
+    @GetMapping ("/getPage")
     public Object hello(){
         Map<String,String> object = new HashMap<>();
         object.put("name", "ItCluster");
