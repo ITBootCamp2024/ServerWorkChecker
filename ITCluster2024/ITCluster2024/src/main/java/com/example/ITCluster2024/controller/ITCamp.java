@@ -12,6 +12,7 @@ public class ITCamp {
     public Object hello(){
         Map<String,String> object = new HashMap<>();
         object.put("name", "ItCluster");
+        object.put("hello, World", "!");
         return object;
     }
 }
