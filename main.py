@@ -1,10 +1,20 @@
 import time
 import requests
+from flask import Flask
+import schedule
 
-while True:
-    timing = time.time()
-    if time.time() - timing > 100.0:
-        timing = time.time()
-        response = requests.get('https://itclusterpython.onrender.com')
-        response = requests.get('https://itclusterpython2024.onrender.com')
-        response = requests.get('https://itclusterjava.onrender.com/teacher')
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return 'Hello, world!'
+
+def make_requests():
+    response = requests.get('https://itclusterpython.onrender.com')
+    response = requests.get('https://itclusterpython2024.onrender.com')
+    response = requests.get('https://itclusterjava.onrender.com/teacher')
+
+schedule.every(100).seconds.do(make_requests)
+
+if __name__ == '__main__':
+    app.run()
