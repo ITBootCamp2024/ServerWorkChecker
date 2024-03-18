@@ -10,13 +10,13 @@ def hello_world():
     return 'Hello World!'
 
 def make_requests1():
-    requests.get('https://itclusterpython.onrender.com')
+    return requests.get('https://itclusterpython.onrender.com').content
 
 def make_requests2():
-    requests.get('https://itclusterpython2024.onrender.com')
+    return requests.get('https://itclusterpython2024.onrender.com').content
 
 def make_requests3():
-    requests.get('https://itclusterjava.onrender.com/teacher')
+    return requests.get('https://itclusterjava.onrender.com/teacher').content
 
 if __name__ == '__main__':
     schedule.every(100).seconds.do(make_requests1)
