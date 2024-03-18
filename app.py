@@ -16,4 +16,5 @@ def make_requests3():
     
 @app.route('/')
 def hello_world():
-    return str(make_requests1()) + str(make_requests2()) + str(make_requests3())
+    while(True):
+        return str(make_requests1()) + str(make_requests2()) + str(make_requests3())
