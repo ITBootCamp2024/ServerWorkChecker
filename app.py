@@ -18,9 +18,11 @@ def make_requests2():
 def make_requests3():
     requests.get('https://itclusterjava.onrender.com/teacher')
 
-schedule.every(100).seconds.do(make_requests1)
-schedule.every(100).seconds.do(make_requests2)
-schedule.every(100).seconds.do(make_requests3)
-
 if __name__ == '__main__':
-    app.run()
+    schedule.every(100).seconds.do(make_requests1)
+    schedule.every(100).seconds.do(make_requests2)
+    schedule.every(100).seconds.do(make_requests3)
+    
+    while True:
+        schedule.run_pending()
+        time.sleep(1)  # Затримка, щоб програма не використовувала занадто багато CPU
