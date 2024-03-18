@@ -8,18 +8,15 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return 'Hello World!'
-    
+
 def make_requests1():
-    response = requests.get('https://itclusterpython.onrender.com')
-    app.logger.info('Request to itclusterpython.onrender.com: %s', response.status_code)
-    
+    requests.get('https://itclusterpython.onrender.com')
+
 def make_requests2():
-    response = requests.get('https://itclusterpython2024.onrender.com')
-    app.logger.info('Request to itclusterpython2024.onrender.com: %s', response.status_code)
-    
+    requests.get('https://itclusterpython2024.onrender.com')
+
 def make_requests3():
-    response = requests.get('https://itclusterjava.onrender.com/teacher')
-    app.logger.info('Request to itclusterjava.onrender.com/teacher: %s', response.status_code)
+    requests.get('https://itclusterjava.onrender.com/teacher')
 
 schedule.every(100).seconds.do(make_requests1)
 schedule.every(100).seconds.do(make_requests2)
