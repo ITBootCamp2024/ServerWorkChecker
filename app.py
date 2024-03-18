@@ -16,8 +16,5 @@ def make_requests3():
 
 @app.route('/')
 def hello_world():
-    schedule.every(100).seconds.do(make_requests1)
-    schedule.every(100).seconds.do(make_requests2)
-    schedule.every(100).seconds.do(make_requests3)
-
+    make_requests1()
 
