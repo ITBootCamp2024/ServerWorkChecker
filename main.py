@@ -3,9 +3,9 @@ import requests
 from flask import Flask
 import schedule
 
-main = Flask(__name__)
+app = Flask(__name__)
 
-@main.route('/')
+@app.route('/')
 def index():
     return 'Hello, world!'
 
@@ -17,4 +17,4 @@ def make_requests():
 schedule.every(100).seconds.do(make_requests)
 
 if __name__ == '__main__':
-    main.run()
+    app.run()
