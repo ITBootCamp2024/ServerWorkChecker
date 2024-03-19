@@ -1,7 +1,7 @@
+import threading
 import time
 import requests
 from flask import Flask
-import schedule
 
 app = Flask(__name__)
 
@@ -14,13 +14,17 @@ def make_requests2():
 def make_requests3():
     return requests.get('https://itclusterpython2024.onrender.com').content
 
-@app.route('/')
-def hello_world():
+def checker_thread():
     while True:
         print(str(make_requests1()) + str(make_requests2()) + str(make_requests3()))
-        checker()
         time.sleep(5)
-    
+
+@app.route('/')
+def hello_world():
+    return 'Server is running'
 
 if __name__ == '__main__':
+    x = threading.Thread(target=checker_thread)
+    x.daemon = True
+    x.start()
     app.run(debug=True)
