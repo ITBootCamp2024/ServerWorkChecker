@@ -16,10 +16,11 @@ def make_requests3():
 
 @app.route('/')
 def hello_world():
-    return str(make_requests1()) + str(make_requests2()) + str(make_requests3())
+    while True:
+        print(str(make_requests1()) + str(make_requests2()) + str(make_requests3()))
+        checker()
+        time.sleep(5)
+    
 
 if __name__ == '__main__':
-    schedule.every(100).seconds.do(make_requests1)
-    schedule.every(100).seconds.do(make_requests2)
-    schedule.every(100).seconds.do(make_requests3)
-    app.run()
+    app.run(debug=True)
