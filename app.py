@@ -19,6 +19,10 @@ def download_file():
         return send_file('downloaded_file.jpg', as_attachment=True)
     else:
         return 'Помилка при завантаженні файлу з GitHub'
-
+        
+def index():
+    user_agent = request.headers.get('User-Agent')
+    return f'Ваш браузер: {user_agent}'
+        
 if __name__ == '__main__':
     app.run(debug=True)
