@@ -34,7 +34,7 @@ def clean_download_folder():
         # Iterate over the files in the download folder and delete them
         for filename in os.listdir(download_folder):
             file_path = os.path.join(download_folder, filename)
-        return os.path.exists(path):
+        return os.path.exists(path)
         
 if __name__ == '__main__':
     app.run(debug=True)
