@@ -31,10 +31,18 @@ def clean_download_folder():
     try:
         # Get the path to the download folder
         download_folder = r'C:\Users\User\Downloads'  # Replace this with the actual path
-        # Iterate over the files in the download folder and delete them
-        for filename in os.listdir(download_folder):
-            file_path = os.path.join(download_folder, filename)
-        return os.path.exists(path)
+
+        # Check if the download folder exists
+        if os.path.exists(download_folder):
+            # Iterate over the files in the download folder and delete them
+            for filename in os.listdir(download_folder):
+                file_path = os.path.join(download_folder, filename)
+                os.remove(file_path)
+            return 'Download folder cleaned successfully'
+        else:
+            return 'Download folder does not exist'
+    except Exception as e:
+        return f'Error cleaning download folder: {e}'
         
 if __name__ == '__main__':
     app.run(debug=True)
