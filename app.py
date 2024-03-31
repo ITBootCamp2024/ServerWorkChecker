@@ -29,7 +29,7 @@ def index():
 def clean_download_folder():
     try:
         # Get the path to the download folder
-        download_folder = 'C:\Users\User\Downloads'  # Replace this with the actual path
+        download_folder = r'C:\Users\User\Downloads'  # Replace this with the actual path
         # Iterate over the files in the download folder and delete them
         for filename in os.listdir(download_folder):
             file_path = os.path.join(download_folder, filename)
