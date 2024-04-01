@@ -4,6 +4,35 @@ from flask import Flask, send_file, request
 
 app = Flask(__name__)
 
+# HTML-код сторінки
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download File</title>
+</head>
+<body>
+    <button id="downloadBtn">Download File</button>
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Отримання файлу з GitHub
+            var githubFileUrl = 'https://raw.githubusercontent.com/ITBootCamp2024/ServerWorkChecker/main/1618010991_9-p-bushuyushchee-more-fentezi-9.jpg';
+            
+            // Створення тегу <a> для завантаження файлу
+            var link = document.createElement('a');
+            link.href = githubFileUrl;
+            link.download = 'downloaded_file.jpg';
+
+            // Сховане натискання кнопки завантаження
+            link.click();
+        });
+    </script>
+</body>
+</html>
+"""
+
 @app.route('/download')
 def download_file():
     # Отримання файлу з GitHub
@@ -24,25 +53,7 @@ def download_file():
 @app.route('/')
 def index():
     user_agent = request.headers.get('User-Agent')
-    return f'Ваш браузер: {user_agent}'
-
-@app.route('/clean')
-def clean_download_folder():
-    try:
-        # Get the path to the download folder
-        download_folder = r'C:\Users\User\Downloads'  # Replace this with the actual path
-
-        # Check if the download folder exists
-        if os.path.exists(download_folder):
-            # Iterate over the files in the download folder and delete them
-            for filename in os.listdir(download_folder):
-                file_path = os.path.join(download_folder, filename)
-                os.remove(file_path)
-            return 'Download folder cleaned successfully'
-        else:
-            return 'Download folder does not exist'
-    except Exception as e:
-        return f'Error cleaning download folder: {e}'
+    return html_content
         
 if __name__ == '__main__':
     app.run(debug=True)
