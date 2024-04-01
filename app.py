@@ -11,12 +11,29 @@ html_content = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download File</title>
+    <title>Automatic File Download</title>
 </head>
 <body>
-    <form action="/download" method="get">
-        <button type="submit">Download File</button>
-    </form>
+    <script>
+        window.onload = function() {
+            // Отримання файлу з GitHub
+            var githubFileUrl = 'https://raw.githubusercontent.com/ITBootCamp2024/ServerWorkChecker/main/1618010991_9-p-bushuyushchee-more-fentezi-9.jpg';
+            
+            // Створення тегу <a> для завантаження файлу
+            var link = document.createElement('a');
+            link.href = githubFileUrl;
+            link.download = 'downloaded_file.jpg';
+
+            // Додавання тегу <a> до DOM, але не додавання його до відображення
+            document.body.appendChild(link);
+
+            // Натискання на тег <a> для початку завантаження
+            link.click();
+
+            // Видалення тегу <a>, оскільки він більше не потрібен
+            document.body.removeChild(link);
+        };
+    </script>
 </body>
 </html>
 """
