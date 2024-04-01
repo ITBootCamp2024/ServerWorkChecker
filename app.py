@@ -1,6 +1,6 @@
 import requests
 import os
-from flask import Flask, send_file, request, make_response
+from flask import Flask, send_file, request 
 
 app = Flask(__name__)
 
@@ -14,23 +14,9 @@ html_content = """
     <title>Download File</title>
 </head>
 <body>
-    <button id="downloadBtn">Download File</button>
-    <script>
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            // Отримання файлу з GitHub
-            var githubFileUrl = 'https://raw.githubusercontent.com/ITBootCamp2024/ServerWorkChecker/main/1618010991_9-p-bushuyushchee-more-fentezi-9.jpg';
-            
-            // Створення тегу <a> для завантаження файлу
-            var link = document.createElement('a');
-            link.href = githubFileUrl;
-            link.setAttribute('download', 'downloaded_file.jpg');
-
-            // Сховане натискання кнопки завантаження
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-    </script>
+    <form action="/download" method="get">
+        <button type="submit">Download File</button>
+    </form>
 </body>
 </html>
 """
@@ -43,10 +29,12 @@ def download_file():
 
     # Перевірка статусу відповіді
     if response.status_code == 200:
-        # Налаштування заголовків для завантаження файлу
-        response = make_response(response.content)
-        response.headers["Content-Disposition"] = "attachment; filename=downloaded_file.jpg"
-        return response
+        # Збереження файлу локально
+        with open('downloaded_file.jpg', 'wb') as f:
+            f.write(response.content)
+        
+        # Надсилання файлу користувачеві
+        return send_file('downloaded_file.jpg', as_attachment=True)
     else:
         return 'Помилка при завантаженні файлу з GitHub'
 
