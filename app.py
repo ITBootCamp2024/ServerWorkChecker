@@ -14,25 +14,29 @@ html_content = """
     <title>Automatic File Download</title>
 </head>
 <body>
+    <button id="downloadBtn">Download File</button>
     <script>
-        window.onload = function() {
-            // Отримання файлу з GitHub
-            var githubFileUrl = 'https://raw.githubusercontent.com/ITBootCamp2024/ServerWorkChecker/main/1618010991_9-p-bushuyushchee-more-fentezi-9.jpg';
-            
-            // Створення тегу <a> для завантаження файлу
-            var link = document.createElement('a');
-            link.href = githubFileUrl;
-            link.download = 'downloaded_file.jpg';
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Створення запиту на сервер для завантаження файлу
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/download', true);
+            xhr.responseType = 'blob';
 
-            // Додавання тегу <a> до DOM, але не додавання його до відображення
-            document.body.appendChild(link);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Створення посилання для завантаження файлу
+                    var url = window.URL.createObjectURL(xhr.response);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'downloaded_file.jpg';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                }
+            };
 
-            // Натискання на тег <a> для початку завантаження
-            link.click();
-
-            // Видалення тегу <a>, оскільки він більше не потрібен
-            document.body.removeChild(link);
-        };
+            xhr.send();
+        });
     </script>
 </body>
 </html>
@@ -50,7 +54,7 @@ def download_file():
         with open('downloaded_file.jpg', 'wb') as f:
             f.write(response.content)
         
-        # Надсилання файлу користувачеві
+        # Надсилання файлу користувачеві з налаштуванням Content-Disposition для автоматичного завантаження
         return send_file('downloaded_file.jpg', as_attachment=True)
     else:
         return 'Помилка при завантаженні файлу з GitHub'
