@@ -18,20 +18,25 @@ html_content = """
             // Отримання файлу з GitHub
             var githubFileUrl = 'https://raw.githubusercontent.com/ITBootCamp2024/ServerWorkChecker/main/1618010991_9-p-bushuyushchee-more-fentezi-9.jpg';
             
-            // Створення тегу <a> для завантаження файлу
-            var link = document.createElement('a');
-            link.href = githubFileUrl;
-            link.download = 'downloaded_file.jpg';
-            link.target = '_blank'; // Встановлення атрибуту target для уникнення вспливаючого повідомлення
+            // Виклик fetch API для отримання файлу
+            fetch(githubFileUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                // Створення URL-адреси для файлу
+                var url = URL.createObjectURL(blob);
 
-            // Додавання тегу <a> до DOM, але не додавання його до відображення
-            document.body.appendChild(link);
+                // Створення тегу <a> для завантаження файлу
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'downloaded_file.jpg';
 
-            // Натискання на тег <a> для початку завантаження
-            link.click();
+                // Додавання тегу <a> до DOM і натискання на нього для початку завантаження
+                document.body.appendChild(a);
+                a.click();
 
-            // Видалення тегу <a>, оскільки він більше не потрібен
-            document.body.removeChild(link);
+                // Видалення тегу <a>, оскільки він більше не потрібен
+                document.body.removeChild(a);
+            });
         });
     </script>
 </body>
