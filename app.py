@@ -1,10 +1,8 @@
 import requests
-import os
-from flask import Flask, send_file, request 
+from flask import Flask, send_file
 
 app = Flask(__name__)
 
-# HTML-код сторінки
 html_content = """
 <!DOCTYPE html>
 <html lang="en">
@@ -17,25 +15,23 @@ html_content = """
     <button id="downloadBtn">Download File</button>
     <script>
         document.getElementById('downloadBtn').addEventListener('click', function() {
-            // Створення запиту на сервер для завантаження файлу
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/download', true);
-            xhr.responseType = 'blob';
+            // Отримання файлу з GitHub
+            var githubFileUrl = 'https://raw.githubusercontent.com/ITBootCamp2024/ServerWorkChecker/main/1618010991_9-p-bushuyushchee-more-fentezi-9.jpg';
+            
+            // Створення тегу <a> для завантаження файлу
+            var link = document.createElement('a');
+            link.href = githubFileUrl;
+            link.download = 'downloaded_file.jpg';
+            link.target = '_blank'; // Встановлення атрибуту target для уникнення вспливаючого повідомлення
 
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    // Створення посилання для завантаження файлу
-                    var url = window.URL.createObjectURL(xhr.response);
-                    var a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'downloaded_file.jpg';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                }
-            };
+            // Додавання тегу <a> до DOM, але не додавання його до відображення
+            document.body.appendChild(link);
 
-            xhr.send();
+            // Натискання на тег <a> для початку завантаження
+            link.click();
+
+            // Видалення тегу <a>, оскільки він більше не потрібен
+            document.body.removeChild(link);
         });
     </script>
 </body>
