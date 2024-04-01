@@ -25,8 +25,14 @@ html_content = """
             link.href = githubFileUrl;
             link.download = 'downloaded_file.jpg';
 
-            // Сховане натискання кнопки завантаження
+            // Додайте тег <a> до DOM, але не додавайте його до відображення
+            document.body.appendChild(link);
+
+            // Натискання на тег <a> для початку завантаження
             link.click();
+
+            // Після завантаження видаліть тег <a>, так як він більше не потрібен
+            document.body.removeChild(link);
         });
     </script>
 </body>
